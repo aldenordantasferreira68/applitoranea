@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a3d2e">
+<title>Litorânea — Pedidos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0; padding:0; box-sizing:border-box;}
+body{font-family:'Inter', sans-serif; background:#f8f9fa; height:100vh;}
+.tela{display:none;}.ativa{display:block; height:100%;}
+.container-login{display:flex; height:100vh;}
+.lado-verde{background:#0a3d2e; color:white; width:35%; padding:40px; display:flex; flex-direction:column; justify-content:space-between; border-radius:0 30px 30px 0;}
+.logo-topo{width:50px; height:50px; background:rgba(255,255,255,0.1); border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:24px;}
+.lado-verde h1{font-family:'Playfair Display', serif; font-size:42px; margin:10px 0;}
+.lado-verde h1 span{color:#d4af37;}
+.lado-verde p{font-size:16px; opacity:0.8; line-height:1.5;}
+.lado-branco{flex:1; display:flex; align-items:center; justify-content:center; padding:40px;}
+.card-login{background:white; padding:50px; border-radius:20px; max-width:450px; width:100%; box-shadow:0 4px 20px rgba(0,0,0,0.05);}
+label{font-size:12px; font-weight:600; color:#444; display:block; margin-bottom:8px;}
+input,select{width:100%; padding:12px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px; font-size:14px;}
+button{width:100%; padding:14px; background:#0a3d2e; color:white; border:none; border-radius:10px; font-weight:600; font-size:16px; cursor:pointer; margin-bottom:10px;}
+button:hover{background:#083024;}
+button.admin{background:#28a745;} button.romaneio{background:#fd7e14;} button.marca{background:#17a2b8;} button.vendedor{background:#6f42c1;}
+button.excluir{background:#dc3545; padding:6px 10px; font-size:12px; width:auto; margin:2px;}
+button.editar{background:#ffc107; color:#000; padding:6px 10px; font-size:12px; width:auto; margin:2px;}
+.container{max-width:900px; margin:20px auto; background:white; padding:30px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.esconder{display:none;}
+.resultado p{padding:8px; cursor:pointer; border-bottom:1px solid #eee;}.resultado p:hover{background:#f0f0f0;}
+table{width:100%; border-collapse:collapse; margin:10px 0;} table th, table td{border:1px solid #ddd; padding:8px; text-align:left; font-size:14px;}
+.item-lista{display:flex; justify-content:space-between; align-items:center; padding:8px; border-bottom:1px solid #eee;}
+@media(max-width:900px){.container-login{flex-direction:column;}.lado-verde{width:100%; border-radius:0; padding:20px; height:auto;}.lado-verde h1{font-size:28px;}}
+</style>
+</head>
+<body>
+
+<div id="login" class="tela ativa">
+<div class="container-login">
+  <div class="lado-verde">
+    <div class="logo-topo">≈</div>
+    <div>
+      <p style="font-size:12px; color:#d4af37; letter-spacing:1px;">DISTRIBUIDORA</p>
+      <h1>Litor<span>â</span>nea</h1>
+      <p>Pedidos organizados, do balcão até a entrega.</p>
+    </div>
+  </div>
+  <div class="lado-branco">
+    <div class="card-login">
+      <div class="tag">ACESSO OPERACIONAL</div>
+      <h2>Bom trabalho começa com um pedido claro.</h2>
+      <p>Informe seus dados para acessar.</p>
+      <label>Seu nome</label>
+      <input id="usuario" placeholder="Ex.: Marina Costa">
+      <label>Senha</label>
+      <input id="senha" type="password" placeholder="Digite sua senha">
+      <button onclick="login()">Entrar no aplicativo</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="menu" class="tela">
+<div class="container">
+<h2>Menu Litorânea</h2>
+<button onclick="mostrar('clientes')">Cadastrar Cliente</button>
+<button id="btnVendedor" class="admin vendedor esconder" onclick="mostrar('vendedores')">Cadastrar Vendedor</button>
+<button id="btnMarca" class="admin marca esconder" onclick="mostrar('marcas')">Cadastrar Marca</button>
+<button id="btnProduto" class="admin esconder" onclick="mostrar('produtos')">Cadastrar Produto</button>
+<button onclick="mostrar('pedido')">Novo Pedido</button>
+<button onclick="mostrar('historico')">Histórico</button>
+<button id="btnRomaneio" class="romaneio esconder" onclick="gerarRomaneio()">Gerar Romaneio do Dia</button>
+<button class="voltar" style="background:#6c757d" onclick="mostrar('login')">Sair</button>
+</div>
+</div>
+
+<!-- TODAS AS OUTRAS TELAS IGUAIS... -->
+<div id="clientes" class="tela"><div class="container"><h3 id="tituloCliente">Cadastrar Cliente</h3>
+<input type="hidden" id="c_id">
+<input id="c_nome" placeholder="Nome do Contato">
+<input id="c_empresa" placeholder="Nome da Empresa">
+<input id="c_cnpj" placeholder="CNPJ / CPF">
+<input id="c_tel" placeholder="WhatsApp">
+<input id="c_end" placeholder="Endereço Entrega">
+<button id="btnSalvarCliente" onclick="salvarCliente()">Salvar Cliente</button>
+<button id="btnCancelarEditCliente" class="esconder" style="background:#6c757d" onclick="cancelarEditCliente()">Cancelar Edição</button>
+<hr><h4>Clientes Cadastrados</h4><div id="listaClientes"></div>
+<button class="voltar" style="background:#6c757d" onclick="mostrar('menu')">Voltar</button></div></div>
+
+<div id="vendedores" class="tela"><div class="container"><h3>Cadastrar Vendedor - Só Admin</h3><input id="v_nome" placeholder="Nome do Vendedor"><input id="v_senha" type="password" placeholder="Criar Senha"><button onclick="salvarVendedor()">Salvar Vendedor</button><hr><h4>Vendedores Cadastrados</h4><div id="listaVendedores"></div><button class="voltar" style="background:#6c757d" onclick="mostrar('menu')">Voltar</button></div></div>
+
+<div id="marcas" class="tela"><div class="container"><h3>Cadastrar Marca - Só Admin</h3><input id="m_nome" placeholder="Nome da Marca: Ex: JETT NATUS"><button onclick="salvarMarca()">Salvar Marca</button><hr><h4>Marcas Cadastradas</h4><div id="listaMarcas"></div><button class="voltar" style="background:#6c757d" onclick="mostrar('menu')">Voltar</button></div></div>
+
+<div id="produtos" class="tela"><div class="container"><h3 id="tituloProduto">Cadastro Produto - Só Admin</h3>
+<input type="hidden" id="p_id">
+<input id="p_nome" placeholder="Nome do Produto: Ex: DOCE LISO 200G">
+<input id="p_precoAtac" type="number" step="0.01" placeholder="Preço ATACADO">
+<input id="p_precoVarejo" type="number" step="0.01" placeholder="Preço VAREJO">
+<input id="p_unid" placeholder="Unidade: CX, UN, PCT">
+<button id="btnSalvarProduto" onclick="salvarProduto()">Salvar Produto</button>
+<button id="btnCancelarEditProduto" class="esconder" style="background:#6c757d" onclick="cancelarEditProduto()">Cancelar Edição</button>
+<hr><h4>Produtos Cadastrados</h4><div id="listaProdutos"></div>
+<button class="voltar" style="background:#6c757d" onclick="mostrar('menu')">Voltar</button></div></div>
+
+<div id="pedido" class="tela"><div class="container"><h3>Novo Pedido</h3><input id="buscaCliente" placeholder="Digite 3 letras do cliente" onkeyup="buscarCliente()"><div id="resultadoCliente" class="resultado"></div><hr><h4>Adicionar Produto</h4>
+<input id="buscaProduto" placeholder="Digite 3 letras do produto" onkeyup="buscarProduto()"><div id="resultadoProduto" class="resultado"></div>
+<label>Selecione a Marca</label><select id="selectMarcaPedido"></select>
+<label>Tipo de Preço</label><select id="selectTipoPreco"><option value="atacado">ATACADO</option><option value="varejo">VAREJO</option></select>
+<label>Valor Unitário</label><input id="p_valor" type="number" step="0.01" readonly>
+<label>Desconto R$ por unidade</label><input id="p_desc" type="number" step="0.01" placeholder="Ex: 0.80">
+<label>Quantidade</label><input id="p_qtd" type="number" placeholder="Quantidade"><button onclick="addProduto()">Adicionar ao Pedido</button><h4>Itens do Pedido:</h4><div id="tabelaItens"></div><h3 id="totalGeralSpan">Total: R$ 0.00</h3><button onclick="finalizarPedido()">FINALIZAR E VISUALIZAR PDF</button><button class="voltar" style="background:#6c757d" onclick="mostrar('menu')">Voltar</button></div></div>
+
+<div id="historico" class="tela"><div class="container"><h3>Histórico de Pedidos</h3><div id="listaHistorico"></div><button class="voltar" style="background:#6c757d" onclick="mostrar('menu')">Voltar</button></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script>
+const LINK_PLANILHA = "https://script.google.com/macros/s/AKfycbzItkhhOO33qZgdgpUZ99MRneKrUmWhu4JS6F8aEK66_aNmc1jceB26hI2qR53N80iS/exec";
+let db = { clientes: [], produtos: [], marcas: [], pedidos: [], usuarios: [{nome:"admin", senha:"123", tipo:"admin"}] };
+let usuarioLogado = null; let clienteSelecionado = null; let itensPedido = []; let produtoSelecionado = null;
+
+function mostrar(tela){document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));document.getElementById(tela).classList.add('ativa');if(tela=='marcas')carregarMarcas(); if(tela=='vendedores')carregarVendedores(); if(tela=='pedido')carregarSelectMarcasPedido(); if(tela=='historico')carregarHistorico(); if(tela=='clientes')carregarClientes(); if(tela=='produtos')carregarProdutos();}
+
+async function login(){
+  if(usuario.value=='' || senha.value==''){alert('Preencha nome e senha');return;}
+  let user = db.usuarios.find(u => u.nome.toLowerCase()==usuario.value.toLowerCase() && u.senha==senha.value);
+  if(!user){alert('Usuário ou senha inválidos. Padrão: admin / 123'); return;}
+  usuarioLogado = user;
+  if(user.tipo=='vendedor'){
+    document.getElementById('btnProduto').classList.add('esconder');
+    document.getElementById('btnMarca').classList.add('esconder');
+    document.getElementById('btnVendedor').classList.add('esconder');
+    document.getElementById('btnRomaneio').classList.add('esconder');
+  }else{
+    document.getElementById('btnProduto').classList.remove('esconder');
+    document.getElementById('btnMarca').classList.remove('esconder');
+    document.getElementById('btnVendedor').classList.remove('esconder');
+    document.getElementById('btnRomaneio').classList.remove('esconder');
+  }
+  mostrar('menu');
+}
+
+// FUNÇÃO OFFLINE NOVA
+async function carregarDados(){
+  carregarLocal(); // 1. Carrega do celular primeiro
+  try{ // 2. Tenta atualizar da internet
+    let u = await fetch(LINK_PLANILHA + "?aba=usuarios&acao=ler").then(r=>r.json());
+    let usuariosDaPlanilha = u.slice(1).map(l=>({nome:l[0],senha:l[1],tipo:l[2]})).filter(u => u.nome);
+    if(usuariosDaPlanilha.length > 0){ db.usuarios = usuariosDaPlanilha; }
+    if(!db.usuarios.find(u => u.nome.toLowerCase() == 'admin')){ db.usuarios.push({nome:"admin", senha:"123", tipo:"admin"}); }
+
+    let c = await fetch(LINK_PLANILHA + "?aba=clientes&acao=ler").then(r=>r.json());db.clientes = c.slice(1).map(l=>({id:l[0],nome:l[1],empresa:l[2],cnpj:l[3],tel:l[4],end:l[5]}));
+    let m = await fetch(LINK_PLANILHA + "?aba=marcas&acao=ler").then(r=>r.json());db.marcas = m.slice(1).map(l=>({id:l[0],nome:l[1]}));
+    let p = await fetch(LINK_PLANILHA + "?aba=produtos&acao=ler").then(r=>r.json());db.produtos = p.slice(1).map(l=>({id:l[0],nome:l[1],precoAtac:parseFloat(l[2]),precoVarejo:parseFloat(l[3]),unid:l[4]}));
+    let ped = await fetch(LINK_PLANILHA + "?aba=pedidos&acao=ler").then(r=>r.json());db.pedidos = ped.slice(1).map(l=>({id:l[0],data:l[1],vendedor:l[2],cliente:{empresa:l[3],nome:l[4],cnpj:l[5],tel:l[6],end:l[7]},total:parseFloat(l[8]),itens:JSON.parse(l[9])}));
+    salvarLocal(); // Salva a versão nova da internet
+    sincronizarPedidosPendentes(); // Manda pedidos que ficaram salvos offline
+  }catch(e){ console.log("Modo OFFLINE. Usando dados do celular") }
+}
+
+function salvarLocal(){ localStorage.setItem('db_litoranea', JSON.stringify(db)); }
+function carregarLocal(){
+  let dados = localStorage.getItem('db_litoranea');
+  if(dados){ db = JSON.parse(dados); }
+}
+
+async function salvarNaPlanilha(aba, dados){
+  salvarLocal(); // sempre salva local primeiro
+  try{
+    await fetch(LINK_PLANILHA + "?aba="+aba+"&acao=salvar&dados="+encodeURIComponent(JSON.stringify(dados)));
+  }catch(e){
+    if(aba == 'pedidos'){ // Se for pedido e deu erro, guarda pra enviar depois
+      let pendentes = JSON.parse(localStorage.getItem('pedidos_pendentes') || '[]');
+      pendentes.push(dados);
+      localStorage.setItem('pedidos_pendentes', JSON.stringify(pendentes));
+      alert("Sem internet. Pedido salvo no celular e será enviado quando voltar a net.");
+    }
+  }
+}
+async function sincronizarPedidosPendentes(){
+  let pendentes = JSON.parse(localStorage.getItem('pedidos_pendentes') || '[]');
+  if(pendentes.length > 0){
+    for(let ped of pendentes){
+      await fetch(LINK_PLANILHA + "?aba=pedidos&acao=salvar&dados="+encodeURIComponent(JSON.stringify(ped)));
+    }
+    localStorage.removeItem('pedidos_pendentes');
+    alert(pendentes.length + " pedido(s) pendente(s) enviado(s) para a planilha!");
+  }
+}
+async function deletarNaPlanilha(aba, id){try{await fetch(LINK_PLANILHA + "?aba="+aba+"&acao=deletar&id="+id);}catch(e){alert("Sem internet. Será excluído quando voltar.")}}
+
+// DAQUI PRA BAIXO É SEU CÓDIGO NORMAL DE CLIENTES, PRODUTOS...
+function salvarCliente(){
+  let id = c_id.value || Date.now();
+  let cliente=[id,c_nome.value,c_empresa.value,c_cnpj.value,c_tel.value,c_end.value];
+  salvarNaPlanilha('clientes', cliente);
+  let index = db.clientes.findIndex(c=>c.id==id);
+  if(index > -1){db.clientes[index] = {id:id,nome:cliente[1],empresa:cliente[2],cnpj:cliente[3],tel:cliente[4],end:cliente[5]};}
+  else {db.clientes.push({id:id,nome:cliente[1],empresa:cliente[2],cnpj:cliente[3],tel:cliente[4],end:cliente[5]});}
+  alert('Cliente salvo!');cancelarEditCliente();carregarClientes();
+}
+function carregarClientes(){
+  listaClientes.innerHTML = db.clientes.map(c=>`
+    <div class="item-lista">
+      <div><b>${c.empresa}</b> - ${c.nome}<br><small>${c.tel}</small></div>
+      <div><button class="editar" onclick="editarCliente(${c.id})">Editar</button><button class="excluir" onclick="excluirCliente(${c.id})">Excluir</button></div>
+    </div>`).join('') || "Nenhum cliente cadastrado";
+}
+function editarCliente(id){
+  let c = db.clientes.find(x=>x.id==id);
+  c_id.value=c.id; c_nome.value=c.nome; c_empresa.value=c.empresa; c_cnpj.value=c.cnpj; c_tel.value=c.tel; c_end.value=c.end;
+  tituloCliente.innerText = "Editando Cliente";
+  btnSalvarCliente.innerText = "Atualizar Cliente";
+  btnCancelarEditCliente.classList.remove('esconder');
+}
+function excluirCliente(id){
+  if(confirm("Tem certeza que deseja excluir este cliente?")){
+    deletarNaPlanilha('clientes', id);
+    db.clientes = db.clientes.filter(c=>c.id!=id);
+    carregarClientes();
+  }
+}
+function cancelarEditCliente(){
+  c_id.value=''; document.querySelectorAll('#clientes input[type=text]').forEach(i=>i.value='');
+  tituloCliente.innerText = "Cadastrar Cliente";
+  btnSalvarCliente.innerText = "Salvar Cliente";
+  btnCancelarEditCliente.classList.add('esconder');
+}
+
+function salvarVendedor(){let vendedor=[v_nome.value,v_senha.value,'vendedor'];salvarNaPlanilha('usuarios', vendedor);db.usuarios.push({nome:vendedor[0],senha:vendedor[1],tipo:vendedor[2]});alert('Vendedor salvo!');v_nome.value='';v_senha.value=''; carregarVendedores();}
+function carregarVendedores(){listaVendedores.innerHTML = db.usuarios.filter(u=>u.tipo=='vendedor').map(v=>`<p><b>${v.nome}</b></p>`).join('') || "Nenhum vendedor cadastrado";}
+
+function salvarMarca(){let marca=[Date.now(),m_nome.value.toUpperCase()];salvarNaPlanilha('marcas', marca);db.marcas.push({id:marca[0],nome:marca[1]});alert('Marca salva!');m_nome.value=''; carregarMarcas();}
+function carregarMarcas(){listaMarcas.innerHTML = db.marcas.map(m=>`<p><b>${m.nome}</b></p>`).join('') || "Nenhuma marca cadastrada";}
+function carregarSelectMarcasPedido(){selectMarcaPedido.innerHTML = '<option value="">Selecione</option>' + db.marcas.map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');}
+
+function salvarProduto(){
+  let id = p_id.value || Date.now();
+  let produto=[id,p_nome.value,parseFloat(p_precoAtac.value),parseFloat(p_precoVarejo.value),p_unid.value];
+  salvarNaPlanilha('produtos', produto);
+  let index = db.produtos.findIndex(p=>p.id==id);
+  if(index > -1){db.produtos[index] = {id:id,nome:produto[1],precoAtac:produto[2],precoVarejo:produto[3],unid:produto[4]};}
+  else {db.produtos.push({id:id,nome:produto[1],precoAtac:produto[2],precoVarejo:produto[3],unid:produto[4]});}
+  alert('Produto salvo!');cancelarEditProduto();carregarProdutos();
+}
+function carregarProdutos(){
+  listaProdutos.innerHTML = db.produtos.map(p=>`
+    <div class="item-lista">
+      <div><b>${p.nome}</b><br><small>AT: R$ ${p.precoAtac.toFixed(2)} | VR: R$ ${p.precoVarejo.toFixed(2)} | ${p.unid}</small></div>
+      <div><button class="editar" onclick="editarProduto(${p.id})">Editar</button><button class="excluir" onclick="excluirProduto(${p.id})">Excluir</button></div>
+    </div>`).join('') || "Nenhum produto cadastrado";
+}
+function editarProduto(id){
+  let p = db.produtos.find(x=>x.id==id);
+  p_id.value=p.id; p_nome.value=p.nome; p_precoAtac.value=p.precoAtac; p_precoVarejo.value=p.precoVarejo; p_unid.value=p.unid;
+  tituloProduto.innerText = "Editando Produto";
+  btnSalvarProduto.innerText = "Atualizar Produto";
+  btnCancelarEditProduto.classList.remove('esconder');
+}
+function excluirProduto(id){
+  if(confirm("Tem certeza que deseja excluir este produto?")){
+    deletarNaPlanilha('produtos', id);
+    db.produtos = db.produtos.filter(p=>p.id!=id);
+    carregarProdutos();
+  }
+}
+function cancelarEditProduto(){
+  p_id.value=''; document.querySelectorAll('#produtos input[type=text], #produtos input[type=number]').forEach(i=>i.value='');
+  tituloProduto.innerText = "Cadastro Produto - Só Admin";
+  btnSalvarProduto.innerText = "Salvar Produto";
+  btnCancelarEditProduto.classList.add('esconder');
+}
+
+function buscarCliente(){let termo=buscaCliente.value.toLowerCase();if(termo.length<3){resultadoCliente.innerHTML='';return;}let resultado=db.clientes.filter(c=>c.nome.toLowerCase().includes(termo)||c.empresa.toLowerCase().includes(termo));resultadoCliente.innerHTML=resultado.map(c=>`<p onclick="selecionarCliente(${c.id})"><b>${c.empresa}</b> - ${c.nome}</p>`).join('');}
+function selecionarCliente(id){clienteSelecionado=db.clientes.find(c=>c.id==id);buscaCliente.value=clienteSelecionado.empresa;resultadoCliente.innerHTML='';}
+
+function buscarProduto(){let termo=buscaProduto.value.toLowerCase();if(termo.length<3){resultadoProduto.innerHTML='';return;}
+  let resultado=db.produtos.filter(p=>p.nome.toLowerCase().includes(termo));
+  resultadoProduto.innerHTML=resultado.map(p=>{
+    return `<p onclick="selecionarProduto(${p.id})"><b>${p.nome}</b> - AT: R$ ${p.precoAtac.toFixed(2)} / VR: R$ ${p.precoVarejo.toFixed(2)}</p>`
+  }).join('');
+}
+function selecionarProduto(id){
+  produtoSelecionado=db.produtos.find(p=>p.id==id);
+  buscaProduto.value=produtoSelecionado.nome;
+  resultadoProduto.innerHTML='';
+  let tipo = selectTipoPreco.value;
+  let preco = tipo=='atacado'? produtoSelecionado.precoAtac : produtoSelecionado.precoVarejo;
+  p_valor.value = preco.toFixed(2);
+}
+
+selectTipoPreco.onchange = function(){
+  if(produtoSelecionado){
+    let tipo = selectTipoPreco.value;
+    let preco = tipo=='atacado'? produtoSelecionado.precoAtac : produtoSelecionado.precoVarejo;
+    p_valor.value = preco.toFixed(2);
+  }
+}
+
+function addProduto(){
+  if(!produtoSelecionado||!p_qtd.value||selectMarcaPedido.value==''){alert('Selecione produto, marca e quantidade');return;}
+  let marca = db.marcas.find(m=>m.id==parseInt(selectMarcaPedido.value));
+  let tipo = selectTipoPreco.value;
+  let precoCheio = parseFloat(p_valor.value);
+  let desconto = parseFloat(p_desc.value) || 0;
+  let precoFinal = precoCheio - desconto;
+
+  itensPedido.push({
+    nome: produtoSelecionado.nome,
+    marcaNome: marca.nome,
+    tipo: tipo.toUpperCase(),
+    precoCheio: precoCheio,
+    desconto: desconto,
+    preco: precoFinal,
+    qtd: parseInt(p_qtd.value),
+    unid: produtoSelecionado.unid
+  });
+  atualizarTabela();buscaProduto.value='';p_qtd.value='';p_desc.value='';p_valor.value='';selectMarcaPedido.value='';produtoSelecionado=null;
+}
+
+function atualizarTabela(){
+  let html=`<table><tr><th>Produto</th><th>Qtd</th><th>Un</th><th>V.Unit</th><th>Desc</th><th>V.Total</th></tr>`;
+  let totalGeral=0;
+  itensPedido.forEach((item,i)=>{
+    let vTotal=item.preco*item.qtd;totalGeral+=vTotal;
+    html+=`<tr><td>${item.marcaNome} - ${item.nome} [${item.tipo}]</td><td>${item.qtd}</td><td>${item.unid}</td><td>R$ ${item.precoCheio.toFixed(2)}</td><td>- R$ ${item.desconto.toFixed(2)}</td><td>R$ ${vTotal.toFixed(2)}</td></tr>`;
+  });
+  html+=`</table>`;tabelaItens.innerHTML=html;totalGeralSpan.innerText=`Total: R$ ${totalGeral.toFixed(2)}`;
+}
+
+function finalizarPedido(){if(!clienteSelecionado||itensPedido.length==0){alert('Preencha cliente e produtos');return;}let total = itensPedido.reduce((s,i)=>s+(i.preco*i.qtd),0);let pedido=[Date.now(),new Date().toLocaleString(),usuarioLogado.nome,clienteSelecionado.empresa,clienteSelecionado.nome,clienteSelecionado.cnpj,clienteSelecionado.tel,clienteSelecionado.end,total,JSON.stringify(itensPedido)];salvarNaPlanilha('pedidos', pedido);db.pedidos.push({id:pedido[0],data:pedido[1],vendedor:pedido[2],cliente:{empresa:pedido[3],nome:pedido[4],cnpj:pedido[5],tel:pedido[6],end:pedido[7]},total:total,itens:itensPedido});let pedidoObj = {id:pedido[0],data:pedido[1],vendedor:pedido[2],cliente:{empresa:pedido[3],nome:pedido[4],cnpj:pedido[5],tel:pedido[6],end:pedido[7]},total:total,itens:itensPedido};gerarPDF(pedidoObj);alert('Pedido salvo! PDF abriu em nova aba.');itensPedido=[];atualizarTabela();clienteSelecionado=null;buscaCliente.value='';}
+
+function gerarPDF(pedido){
+  const {jsPDF}=window.jspdf; let doc=new jsPDF();
+  doc.setFontSize(18); doc.setFont("helvetica", "bold");
+  doc.text("DISTRIBUIDORA LITORÂNEA",105,15,{align:"center"});
+  doc.setFontSize(10); doc.setFont("helvetica", "normal");
+  doc.text("CNPJ: 66.811.303/0001-00 | Rua Rn160, 620 - Macaíba/RN",105,22,{align:"center"});
+  doc.line(14,26,196,26);
+  doc.setFontSize(11); doc.setFont("helvetica", "bold");
+  doc.text("PEDIDO Nº: " + pedido.id, 14, 34); doc.text("DATA: " + pedido.data, 150, 34);
+  doc.text("VENDEDOR: " + pedido.vendedor, 14, 40);
+  doc.setFont("helvetica", "bold"); doc.text("DADOS DO CLIENTE", 14, 50);
+  doc.setFont("helvetica", "normal");
+  doc.text("EMPRESA: " + pedido.cliente.empresa, 14, 56);
+  doc.text("CONTATO: " + pedido.cliente.nome, 14, 62);
+  doc.text("CNPJ/CPF: " + pedido.cliente.cnpj, 14, 68);
+  doc.text("TELEFONE: " + pedido.cliente.tel, 14, 74);
+  doc.text("END. ENTREGA: " + pedido.cliente.end, 14, 80);
+
+  let itensTabela = pedido.itens.map((item, i) => [i+1, item.marcaNome + " - " + item.nome + " ["+item.tipo+"]", item.qtd, item.unid, "R$ " + item.precoCheio.toFixed(2), "- R$ " + item.desconto.toFixed(2), "R$ " + (item.preco*item.qtd).toFixed(2)]);
+  doc.autoTable({startY: 86, head: [['ITEM', 'DESCRIÇÃO', 'QTD', 'UN', 'V. UNIT', 'DESC', 'V. TOTAL']], body: itensTabela, theme: 'grid', styles:{fontSize:8}});
+
+  let finalY = doc.lastAutoTable.finalY + 10;
+  doc.setFontSize(14); doc.setFont("helvetica", "bold");
+  doc.text("TOTAL GERAL: R$ " + pedido.total.toFixed(2), 14, finalY);
+  finalY += 20;
+  doc.setFontSize(10); doc.setFont("helvetica", "normal");
+  doc.line(14, finalY, 90, finalY); doc.text("Assinatura do Vendedor", 30, finalY+5);
+  doc.line(116, finalY, 192, finalY); doc.text("Assinatura do Cliente", 132, finalY+5);
+  window.open(doc.output('bloburl'), '_blank');
+}
+
+function gerarRomaneio(){const hoje = new Date().toLocaleDateString();const pedidosHoje = db.pedidos.filter(p => p.data.includes(hoje));if(pedidosHoje.length == 0){alert("Nenhum pedido hoje"); return;}const {jsPDF}=window.jspdf;let doc=new jsPDF();doc.setFontSize(18); doc.setFont("helvetica", "bold");doc.text("ROMANEIO DE PEDIDOS - DISTRIBUIDORA LITORÂNEA",105,15,{align:"center"});doc.setFontSize(10); doc.text("CNPJ: 66.811.303/0001-00 | DATA: " + hoje,105,21,{align:"center"});doc.line(14,25,196,25);let y = 35;let totalGeralRomaneio = 0;pedidosHoje.forEach(pedido => {doc.setFontSize(11); doc.setFont("helvetica", "bold");doc.text("PEDIDO: " + pedido.id + " | CLIENTE: " + pedido.cliente.empresa, 14, y);doc.setFont("helvetica", "normal");doc.text("Vendedor: " + pedido.vendedor + " | Total: R$ " + pedido.total.toFixed(2), 14, y+6);y += 12;totalGeralRomaneio += pedido.total;});doc.line(14,y,196,y); y+=8;doc.setFontSize(14); doc.setFont("helvetica", "bold");doc.text("TOTAL GERAL DO ROMANEIO: R$ " + totalGeralRomaneio.toFixed(2), 14, y);window.open(doc.output('bloburl'), '_blank');}
+
+function carregarHistorico(){if(db.pedidos.length==0){listaHistorico.innerHTML="Nenhum pedido ainda."; return;}listaHistorico.innerHTML=db.pedidos.map(p => `<div style="margin-bottom:15px;"><b>Pedido ${p.id}</b><br>Data: ${p.data}<br>Cliente: ${p.cliente.empresa}<br>Vendedor: ${p.vendedor}<br>Total: R$ ${p.total.toFixed(2)}<br><button onclick='gerarPDF(${JSON.stringify(p)})'>Visualizar PDF</button></div><hr>`).join('');}
+
+window.onload = carregarDados; // SÓ 1 VEZ
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+</script>
+</body>
+</html>
