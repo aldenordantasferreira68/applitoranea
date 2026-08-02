@@ -1,8 +1,24 @@
 const CACHE_NAME = 'litoranea-v2';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/script.js',
+  '/style.css'
+];
+
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./','index.html','manifest.json'])));
-  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+  );
 });
+
 self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        return response || fetch(event.request);
+      })
+  );
 });
