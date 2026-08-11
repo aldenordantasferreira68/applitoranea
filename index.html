@@ -187,7 +187,27 @@ async function sincronizarPedidosPendentes(){
     alert(pendentes.length + " pedido(s) pendente(s) enviado(s) para a planilha!");
   }
 }
-async function deletarNaPlanilha(aba, id){try{await fetch(LINK_PLANILHA + "?aba="+aba+"&acao=deletar&id="+id);}catch(e){alert("Sem internet. Será excluído quando voltar.")}}
+async function deletarNaPlanilha(aba, id){
+  if(!id){
+    alert("Erro: ID vazio. Atualiza com Ctrl+F5");
+    return;
+  }
+
+  const url = `${LINK_PLANILHA}?aba=${aba}&acao=deletar&id=${id}`;
+
+  try{
+    await fetch(url, {
+      mode: 'no-cors', // <- ISSO AQUI RESOLVE O CORS
+      method: 'GET'
+    });
+
+    alert("Excluído com sucesso!");
+
+  }catch(e){
+    console.error(e);
+    alert("Sem internet. Será excluído quando voltar.")
+  }
+}
 
 // DAQUI PRA BAIXO É SEU CÓDIGO NORMAL DE CLIENTES, PRODUTOS...
 function salvarCliente(){
