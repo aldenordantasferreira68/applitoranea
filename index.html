@@ -203,7 +203,7 @@ function carregarClientes(){
   listaClientes.innerHTML = db.clientes.map(c=>`
     <div class="item-lista">
       <div><b>${c.empresa}</b> - ${c.nome}<br><small>${c.tel}</small></div>
-      <div><button class="editar" onclick="editarCliente(${c.id})">Editar</button><button class="excluir" onclick="excluirCliente(${c.id})">Excluir</button></div>
+      <div><button class="editar" onclick="editarCliente(${c.id})">Editar</button><button class="excluir" onclick="excluirCliente(${criente.id})">Excluir</button></div>
     </div>`).join('') || "Nenhum cliente cadastrado";
 }
 function editarCliente(id){
