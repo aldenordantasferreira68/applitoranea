@@ -523,18 +523,17 @@ async function finalizarPedido(){
   mostrar('historico');
 }
 
-// ========== PDF — FONTES REDUZIDAS DEFINITIVAMENTE ==========
+// ========== PDF — FONTES REDUZIDAS ==========
 function gerarPDF(ped){
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   
-  // CABEÇALHO — TAMANHOS REDUZIDOS E FIXOS
-  doc.setFontSize(14); // ← Título bem menor
+  doc.setFontSize(14);
   doc.setTextColor(10,61,46);
   doc.setFont('helvetica','bold');
   doc.text('DISTRIBUIDORA LITORÂNEA', 105, 20, {align:'center'});
   
-  doc.setFontSize(9); // ← Subtítulo pequeno
+  doc.setFontSize(9);
   doc.setTextColor(212,175,55);
   doc.setFont('helvetica','italic');
   doc.text('"Pedidos organizados, do balcão até a entrega."', 105, 26, {align:'center'});
@@ -542,7 +541,7 @@ function gerarPDF(ped){
   doc.setDrawColor(200,200,200);
   doc.line(20,32,190,32);
   
-  doc.setFontSize(10); // ← Dados padrão
+  doc.setFontSize(10);
   doc.setTextColor(60,60,60);
   doc.setFont('helvetica','normal');
   
@@ -559,7 +558,6 @@ function gerarPDF(ped){
   doc.text(`Telefone: ${ped.cliente.tel || 'Não informado'}`, 20, 92);
   doc.text(`Entrega: ${ped.cliente.end || 'Não informado'}`, 20, 100);
   
-  // TABELA DE ITENS
   const linhas = ped.itens.map(i=>[
     i.produto,
     i.marca,
@@ -587,7 +585,7 @@ function gerarPDF(ped){
   
   doc.setFontSize(7);
   doc.setTextColor(150,150,150);
-  doc.text('Distribuidora Litorânea — CNPJ: (a preencher) — Tel: (a preencher)', 105, 292, {align:'center'});
+  doc.text('Distribuidora Litorânea', 105, 292, {align:'center'});
   
   doc.save(`pedido_${ped.id}.pdf`);
 }
@@ -611,17 +609,31 @@ function reimprimirPDF(id){
   if(p) gerarPDF(p);
 }
 
-// ========== ROMANEIO MENSAL — CLIENTE POR CLIENTE ✅ ==========
+// ========== ROMANEIO MENSAL — CORRIGIDO ✅ ==========
 function gerarRomaneio(){
-  const mes = prompt('Digite o mês (1-12):', new Date().getMonth()+1);
-  const ano = prompt('Digite o ano:', new Date().getFullYear());
+  // Pega data atual e calcula mês passado como padrão
+  const hoje = new Date();
+  let mesPadrao = hoje.getMonth(); // mês atual em número (0-11)
+  let anoPadrao = hoje.getFullYear();
+  
+  // Se for janeiro, mês passado é dezembro do ano anterior
+  if(mesPadrao === 0){
+    mesPadrao = 12;
+    anoPadrao -= 1;
+  } else {
+    mesPadrao += 0; // mês passado
+  }
+  
+  // Pergunta mês e ano — JÁ VEM PREENCHIDO COM O MÊS PASSADO!
+  const mes = prompt('Digite o mês (1-12):', mesPadrao);
+  const ano = prompt('Digite o ano:', anoPadrao);
   if(!mes || !ano) return;
   
   const m = parseInt(mes);
   const a = parseInt(ano);
   const nomesMes = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
   
-  // Filtrar pedidos do mês/ano
+  // Filtrar pedidos do mês/ano — SEM DEPENDER DE VENDAS DO DIA
   const pedidosMes = db.pedidos.filter(p=>{
     const partes = p.data.split('/');
     if(partes.length < 3) return false;
@@ -648,7 +660,7 @@ function gerarRomaneio(){
   const totalGeral = pedidosMes.reduce((s,p)=>s+p.total,0);
   const qtdClientes = Object.keys(porCliente).length;
   
-  // Montar saída
+  // Montar linhas
   let linhasClientes = '';
   for(const [nome, dados] of Object.entries(porCliente).sort()){
     linhasClientes += `
