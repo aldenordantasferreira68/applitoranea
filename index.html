@@ -12,34 +12,35 @@ body{font-family:'Inter', sans-serif; background:#f8f9fa; min-height:100vh;}
 .tela{display:none;}.ativa{display:block; min-height:100vh;}
 .container-login{display:flex; min-height:100vh;}
 .lado-verde{background:#0a3d2e; color:white; width:35%; padding:40px; display:flex; flex-direction:column; justify-content:space-between; border-radius:0 30px 30px 0;}
-.logo-topo{width:50px; height:50px; background:rgba(255,255,255,0.1); border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:24px;}
+.logo-topo{width:60px; height:60px; background:linear-gradient(135deg,#d4af37,#f0c860); border-radius:15px; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:bold; color:#0a3d2e;}
 .lado-verde h1{font-family:'Playfair Display', serif; font-size:42px; margin:10px 0;}
 .lado-verde h1 span{color:#d4af37;}
-.lado-verde p{font-size:16px; opacity:0.8; line-height:1.5;}
+.lado-verde p{font-size:16px; opacity:0.85; line-height:1.6;}
 .lado-branco{flex:1; display:flex; align-items:center; justify-content:center; padding:40px;}
 .card-login{background:white; padding:50px; border-radius:20px; max-width:450px; width:100%; box-shadow:0 4px 20px rgba(0,0,0,0.05);}
-.tag{color:#0a3d2e; font-weight:600; font-size:13px; margin-bottom:5px;}
-label{font-size:12px; font-weight:600; color:#444; display:block; margin:15px 0 6px;}
-input,select{width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:14px;}
-button{width:100%; padding:14px; background:#0a3d2e; color:white; border:none; border-radius:10px; font-weight:600; font-size:16px; cursor:pointer; margin:8px 0;}
-button:hover{background:#083024;}
+.tag{color:#0a3d2e; font-weight:600; font-size:13px; margin-bottom:8px; letter-spacing:1px;}
+label{font-size:13px; font-weight:600; color:#444; display:block; margin:15px 0 6px;}
+input,select{width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; font-size:15px;}
+button{width:100%; padding:14px; background:#0a3d2e; color:white; border:none; border-radius:10px; font-weight:600; font-size:16px; cursor:pointer; margin:8px 0; transition:0.2s;}
+button:hover{background:#083024; transform:translateY(-1px);}
 button.admin{background:#28a745;} 
 button.romaneio{background:#fd7e14;} 
 button.marca{background:#17a2b8;} 
 button.vendedor{background:#6f42c1;}
-button.excluir{background:#dc3545; padding:6px 10px; font-size:12px; width:auto; margin:2px;}
-button.editar{background:#ffc107; color:#000; padding:6px 10px; font-size:12px; width:auto; margin:2px;}
+button.excluir{background:#dc3545; padding:8px 12px; font-size:13px; width:auto; margin:3px;}
+button.editar{background:#ffc107; color:#000; padding:8px 12px; font-size:13px; width:auto; margin:3px;}
 button.voltar{background:#6c757d;}
 .container{max-width:900px; margin:20px auto; background:white; padding:30px; border-radius:15px; box-shadow:0 2px 10px rgba(0,0,0,0.05);}
 .esconder{display:none;}
-.resultado p{padding:10px; cursor:pointer; border-bottom:1px solid #eee; margin:0;}
-.resultado p:hover{background:#f0f0f0;}
+.resultado p{padding:12px; cursor:pointer; border-bottom:1px solid #eee; margin:0; transition:0.15s;}
+.resultado p:hover{background:#f0f0f0; padding-left:16px;}
 table{width:100%; border-collapse:collapse; margin:15px 0;} 
-table th, table td{border:1px solid #ddd; padding:10px; text-align:left; font-size:14px;}
-table th{background:#f8f9fa; font-weight:600;}
-.item-lista{display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #eee;}
-.total-pedido{font-size:22px; font-weight:700; color:#0a3d2e; margin:15px 0;}
-hr{border:none; border-top:1px solid #eee; margin:20px 0;}
+table th, table td{border:1px solid #ddd; padding:12px; text-align:left; font-size:14px;}
+table th{background:#f8f9fa; font-weight:600; color:#0a3d2e;}
+.item-lista{display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid #eee;}
+.total-pedido{font-size:22px; font-weight:700; color:#0a3d2e; margin:20px 0; padding:15px; background:#f0f9f4; border-radius:10px; text-align:center;}
+hr{border:none; border-top:1px solid #eee; margin:25px 0;}
+.romaneio-resumo{background:#fef8e8; padding:20px; border-radius:12px; margin:15px 0; border-left:4px solid #fd7e14;}
 @media(max-width:900px){
   .container-login{flex-direction:column;}
   .lado-verde{width:100%; border-radius:0; padding:25px; min-height:auto;}
@@ -55,9 +56,9 @@ hr{border:none; border-top:1px solid #eee; margin:20px 0;}
 <div id="login" class="tela ativa">
 <div class="container-login">
   <div class="lado-verde">
-    <div class="logo-topo">≈</div>
+    <div class="logo-topo">L</div>
     <div>
-      <p style="font-size:12px; color:#d4af37; letter-spacing:1px;">DISTRIBUIDORA</p>
+      <p style="font-size:13px; color:#d4af37; letter-spacing:2px; font-weight:600;">D I S T R I B U I D O R A</p>
       <h1>Litor<span>â</span>nea</h1>
       <p>Pedidos organizados, do balcão até a entrega.</p>
     </div>
@@ -65,13 +66,13 @@ hr{border:none; border-top:1px solid #eee; margin:20px 0;}
   <div class="lado-branco">
     <div class="card-login">
       <div class="tag">ACESSO OPERACIONAL</div>
-      <h2>Bom trabalho começa com um pedido claro.</h2>
-      <p>Informe seus dados para acessar.</p>
+      <h2>Bem-vindo(a)!</h2>
+      <p>Informe seus dados para acessar o sistema.</p>
       <label>Seu nome</label>
       <input id="usuario" placeholder="Ex.: Marina Costa">
       <label>Senha</label>
       <input id="senha" type="password" placeholder="Digite sua senha">
-      <button onclick="login()">Entrar no aplicativo</button>
+      <button onclick="login()">Entrar no sistema</button>
     </div>
   </div>
 </div>
@@ -79,14 +80,14 @@ hr{border:none; border-top:1px solid #eee; margin:20px 0;}
 
 <div id="menu" class="tela">
 <div class="container">
-<h2>📋 Menu Litorânea</h2>
+<h2 style="font-family:'Playfair Display',serif; color:#0a3d2e; margin-bottom:25px;">📋 Menu — Distribuidora Litorânea</h2>
 <button onclick="mostrar('clientes')">👤 Cadastrar Cliente</button>
 <button id="btnVendedor" class="admin vendedor esconder" onclick="mostrar('vendedores')">🧑‍💼 Cadastrar Vendedor</button>
 <button id="btnMarca" class="admin marca esconder" onclick="mostrar('marcas')">🏷️ Cadastrar Marca</button>
 <button id="btnProduto" class="admin esconder" onclick="mostrar('produtos')">📦 Cadastrar Produto</button>
 <button onclick="mostrar('pedido')">🛒 Novo Pedido</button>
-<button onclick="mostrar('historico')">📜 Histórico</button>
-<button id="btnRomaneio" class="romaneio esconder" onclick="gerarRomaneio()">📋 Gerar Romaneio do Dia</button>
+<button onclick="mostrar('historico')">📜 Histórico de Pedidos</button>
+<button id="btnRomaneio" class="romaneio esconder" onclick="gerarRomaneio()">📊 Romaneio Mensal</button>
 <button class="voltar" onclick="mostrar('login')">🚪 Sair</button>
 </div>
 </div>
@@ -222,9 +223,515 @@ async function login(){
     return;
   }
   usuarioLogado = user;
-  // Controle de visibilidade por perfil
   const isAdmin = user.tipo === 'admin';
   document.getElementById('btnProduto').classList.toggle('esconder', !isAdmin);
   document.getElementById('btnMarca').classList.toggle('esconder', !isAdmin);
   document.getElementById('btnVendedor').classList.toggle('esconder', !isAdmin);
-  document.getElementById('btnRomaneio').classList.toggle('esconder', !isA
+  document.getElementById('btnRomaneio').classList.toggle('esconder', !isAdmin);
+  mostrar('menu');
+}
+
+// ========== SINCRONIZAÇÃO ==========
+async function carregarDados(){
+  carregarLocal();
+  try{
+    const [uRes, cRes, mRes, pRes, pedRes] = await Promise.all([
+      fetch(LINK_PLANILHA + "?aba=usuarios&acao=ler").then(r=>r.json()),
+      fetch(LINK_PLANILHA + "?aba=clientes&acao=ler").then(r=>r.json()),
+      fetch(LINK_PLANILHA + "?aba=marcas&acao=ler").then(r=>r.json()),
+      fetch(LINK_PLANILHA + "?aba=produtos&acao=ler").then(r=>r.json()),
+      fetch(LINK_PLANILHA + "?aba=pedidos&acao=ler").then(r=>r.json())
+    ]);
+    let usuariosDaPlanilha = uRes.slice(1).map(l=>({nome:l[0],senha:l[1],tipo:l[2]})).filter(u=>u.nome);
+    if(usuariosDaPlanilha.length) db.usuarios = usuariosDaPlanilha;
+    if(!db.usuarios.find(u=>u.nome.toLowerCase()=='admin')) db.usuarios.push({nome:"admin",senha:"123",tipo:"admin"});
+    db.clientes = cRes.slice(1).map(l=>({id:l[0],nome:l[1],empresa:l[2],cnpj:l[3],tel:l[4],end:l[5]}));
+    db.marcas = mRes.slice(1).map(l=>({id:l[0],nome:l[1]}));
+    db.produtos = pRes.slice(1).map(l=>({id:l[0],nome:l[1],precoAtac:parseFloat(l[2])||0,precoVarejo:parseFloat(l[3])||0,unid:l[4]}));
+    db.pedidos = pedRes.slice(1).map(l=>({
+      id:l[0],data:l[1],vendedor:l[2],
+      cliente:{empresa:l[3],nome:l[4],cnpj:l[5],tel:l[6],end:l[7]},
+      total:parseFloat(l[8])||0,itens:JSON.parse(l[9]||'[]')
+    }));
+    salvarLocal();
+    sincronizarPedidosPendentes();
+  }catch(e){
+    console.log("Modo OFFLINE — dados locais carregados");
+  }
+}
+function salvarLocal(){ localStorage.setItem('db_litoranea', JSON.stringify(db)); }
+function carregarLocal(){
+  const d = localStorage.getItem('db_litoranea');
+  if(d) db = JSON.parse(d);
+}
+async function salvarNaPlanilha(aba, dados){
+  salvarLocal();
+  try{
+    await fetch(`${LINK_PLANILHA}?aba=${aba}&acao=salvar&dados=${encodeURIComponent(JSON.stringify(dados))}`);
+  }catch{
+    if(aba=='pedidos'){
+      let pendentes = JSON.parse(localStorage.getItem('pedidos_pendentes')||'[]');
+      pendentes.push(dados);
+      localStorage.setItem('pedidos_pendentes', JSON.stringify(pendentes));
+      alert("Sem internet. Salvo local — enviado ao reconectar.");
+    }
+  }
+}
+async function sincronizarPedidosPendentes(){
+  let pendentes = JSON.parse(localStorage.getItem('pedidos_pendentes')||'[]');
+  if(!pendentes.length) return;
+  for(const p of pendentes){
+    await fetch(`${LINK_PLANILHA}?aba=pedidos&acao=salvar&dados=${encodeURIComponent(JSON.stringify(p))}`);
+  }
+  localStorage.removeItem('pedidos_pendentes');
+  alert(`${pendentes.length} pedido(s) enviado(s)!`);
+}
+async function deletarNaPlanilha(aba,id){
+  if(!id) return alert("ID inválido");
+  try{
+    await fetch(`${LINK_PLANILHA}?aba=${aba}&acao=deletar&id=${id}`,{mode:'no-cors'});
+    alert("Excluído!");
+  }catch{ alert("Excluído localmente — sincronizará ao voltar à internet"); }
+}
+
+// ========== CLIENTES ==========
+function salvarCliente(){
+  const id = c_id.value || Date.now();
+  const cli = [id,c_nome.value,c_empresa.value,c_cnpj.value,c_tel.value,c_end.value];
+  salvarNaPlanilha('clientes',cli);
+  const idx = db.clientes.findIndex(c=>c.id==id);
+  if(idx>-1) db.clientes[idx] = {id,nome:cli[1],empresa:cli[2],cnpj:cli[3],tel:cli[4],end:cli[5]};
+  else db.clientes.push({id,nome:cli[1],empresa:cli[2],cnpj:cli[3],tel:cli[4],end:cli[5]});
+  alert('Cliente salvo!'); cancelarEditCliente(); carregarClientes();
+}
+function carregarClientes(){
+  listaClientes.innerHTML = db.clientes.map(c=>`
+    <div class="item-lista">
+      <div><b>${c.empresa}</b> — ${c.nome}<br><small>${c.tel}</small></div>
+      <div>
+        <button class="editar" onclick="editarCliente('${c.id}')">Editar</button>
+        <button class="excluir" onclick="excluirCliente('${c.id}')">Excluir</button>
+      </div>
+    </div>`).join('') || "Nenhum cliente cadastrado";
+}
+function editarCliente(id){
+  const c = db.clientes.find(x=>x.id==id);
+  c_id.value=c.id; c_nome.value=c.nome; c_empresa.value=c.empresa; 
+  c_cnpj.value=c.cnpj; c_tel.value=c.tel; c_end.value=c.end;
+  tituloCliente.innerText="✏️ Editando Cliente";
+  btnSalvarCliente.innerText="Atualizar";
+  btnCancelarEditCliente.classList.remove('esconder');
+}
+function excluirCliente(id){
+  if(confirm("Excluir este cliente?")){
+    deletarNaPlanilha('clientes',id);
+    db.clientes = db.clientes.filter(c=>c.id!=id);
+    carregarClientes();
+  }
+}
+function cancelarEditCliente(){
+  c_id.value=''; ['c_nome','c_empresa','c_cnpj','c_tel','c_end'].forEach(id=>document.getElementById(id).value='');
+  tituloCliente.innerText="👤 Cadastrar Cliente";
+  btnSalvarCliente.innerText="Salvar Cliente";
+  btnCancelarEditCliente.classList.add('esconder');
+}
+
+// ========== VENDEDORES ==========
+function salvarVendedor(){
+  const v = [v_nome.value,v_senha.value,'vendedor'];
+  salvarNaPlanilha('usuarios',v);
+  db.usuarios.push({nome:v[0],senha:v[1],tipo:v[2]});
+  alert('Vendedor cadastrado!'); v_nome.value=''; v_senha.value=''; carregarVendedores();
+}
+function carregarVendedores(){
+  listaVendedores.innerHTML = db.usuarios.filter(u=>u.tipo=='vendedor')
+    .map(v=>`<p style="padding:8px 0;"><b>${v.nome}</b></p>`).join('') || "Nenhum vendedor cadastrado";
+}
+
+// ========== MARCAS ==========
+function salvarMarca(){
+  const m = [Date.now(), m_nome.value.toUpperCase()];
+  salvarNaPlanilha('marcas',m);
+  db.marcas.push({id:m[0],nome:m[1]});
+  alert('Marca cadastrada!'); m_nome.value=''; carregarMarcas();
+}
+function carregarMarcas(){
+  listaMarcas.innerHTML = db.marcas.map(m=>`<p style="padding:8px 0;"><b>${m.nome}</b></p>`).join('') || "Nenhuma marca cadastrada";
+}
+function carregarSelectMarcasPedido(){
+  selectMarcaPedido.innerHTML = '<option value="">Selecione uma marca</option>' + 
+    db.marcas.map(m=>`<option value="${m.id}">${m.nome}</option>`).join('');
+}
+
+// ========== PRODUTOS ==========
+function salvarProduto(){
+  const id = p_id.value || Date.now();
+  const p = [id,p_nome.value,parseFloat(p_precoAtac.value)||0,parseFloat(p_precoVarejo.value)||0,p_unid.value];
+  salvarNaPlanilha('produtos',p);
+  const idx = db.produtos.findIndex(x=>x.id==id);
+  if(idx>-1) db.produtos[idx] = {id,nome:p[1],precoAtac:p[2],precoVarejo:p[3],unid:p[4]};
+  else db.produtos.push({id,nome:p[1],precoAtac:p[2],precoVarejo:p[3],unid:p[4]});
+  alert('Produto salvo!'); cancelarEditProduto(); carregarProdutos();
+}
+function carregarProdutos(){
+  listaProdutos.innerHTML = db.produtos.map(p=>`
+    <div class="item-lista">
+      <div><b>${p.nome}</b><br><small>Atac: R$ ${p.precoAtac.toFixed(2)} | Varej: R$ ${p.precoVarejo.toFixed(2)} | ${p.unid}</small></div>
+      <div>
+        <button class="editar" onclick="editarProduto(${p.id})">Editar</button>
+        <button class="excluir" onclick="excluirProduto(${p.id})">Excluir</button>
+      </div>
+    </div>`).join('') || "Nenhum produto cadastrado";
+}
+function editarProduto(id){
+  const p = db.produtos.find(x=>x.id==id);
+  p_id.value=p.id; p_nome.value=p.nome; p_precoAtac.value=p.precoAtac; 
+  p_precoVarejo.value=p.precoVarejo; p_unid.value=p.unid;
+  tituloProduto.innerText="✏️ Editando Produto";
+  btnSalvarProduto.innerText="Atualizar";
+  btnCancelarEditProduto.classList.remove('esconder');
+}
+function excluirProduto(id){
+  if(confirm("Excluir este produto?")){
+    deletarNaPlanilha('produtos',id);
+    db.produtos = db.produtos.filter(x=>x.id!=id);
+    carregarProdutos();
+  }
+}
+function cancelarEditProduto(){
+  p_id.value=''; ['p_nome','p_precoAtac','p_precoVarejo','p_unid'].forEach(id=>document.getElementById(id).value='');
+  tituloProduto.innerText="📦 Cadastro Produto — Administrador";
+  btnSalvarProduto.innerText="Salvar Produto";
+  btnCancelarEditProduto.classList.add('esconder');
+}
+
+// ========== PEDIDO — BUSCA & ADICIONAR ==========
+function buscarCliente(){
+  const termo = buscaCliente.value.toLowerCase();
+  if(termo.length<3) return resultadoCliente.innerHTML='';
+  const res = db.clientes.filter(c=>
+    c.nome.toLowerCase().includes(termo) || c.empresa.toLowerCase().includes(termo)
+  );
+  resultadoCliente.innerHTML = res.map(c=>
+    `<p onclick="selecionarCliente('${c.id}')"><b>${c.empresa}</b> — ${c.nome}</p>`
+  ).join('');
+}
+function selecionarCliente(id){
+  clienteSelecionado = db.clientes.find(c=>c.id==id);
+  buscaCliente.value = clienteSelecionado.empresa;
+  resultadoCliente.innerHTML='';
+}
+function buscarProduto(){
+  const termo = buscaProduto.value.toLowerCase();
+  if(termo.length<3) return resultadoProduto.innerHTML='';
+  const res = db.produtos.filter(p=>p.nome.toLowerCase().includes(termo));
+  resultadoProduto.innerHTML = res.map(p=>
+    `<p onclick="selecionarProduto(${p.id})"><b>${p.nome}</b> — Atac: R$ ${p.precoAtac.toFixed(2)} / Varej: R$ ${p.precoVarejo.toFixed(2)}</p>`
+  ).join('');
+}
+function selecionarProduto(id){
+  produtoSelecionado = db.produtos.find(p=>p.id==id);
+  buscaProduto.value = produtoSelecionado.nome;
+  resultadoProduto.innerHTML='';
+  atualizarValorUnitario();
+}
+selectTipoPreco.onchange = atualizarValorUnitario;
+function atualizarValorUnitario(){
+  if(!produtoSelecionado) return;
+  const tipo = selectTipoPreco.value;
+  const preco = tipo==='atacado' ? produtoSelecionado.precoAtac : produtoSelecionado.precoVarejo;
+  p_valor.value = preco.toFixed(2);
+}
+function addProduto(){
+  if(!produtoSelecionado || !p_qtd.value || !selectMarcaPedido.value){
+    return alert('Selecione produto, marca e quantidade');
+  }
+  const marca = db.marcas.find(m=>m.id==parseInt(selectMarcaPedido.value));
+  const qtd = parseFloat(p_qtd.value);
+  const valorUnit = parseFloat(p_valor.value);
+  const desconto = parseFloat(p_desc.value)||0;
+  const totalItem = (valorUnit - desconto) * qtd;
+  
+  itensPedido.push({
+    id:Date.now(),
+    produto:produtoSelecionado.nome,
+    marca:marca.nome,
+    unid:produtoSelecionado.unid,
+    valorUnit,
+    desconto,
+    qtd,
+    totalItem
+  });
+  atualizarTabelaItens();
+  buscaProduto.value=''; p_valor.value=''; p_desc.value='0'; p_qtd.value='';
+  produtoSelecionado=null;
+}
+function atualizarTabelaItens(){
+  tabelaItens.innerHTML = itensPedido.map((item,idx)=>`
+    <div class="item-lista">
+      <div>
+        <b>${item.produto}</b> — ${item.marca} — ${item.qtd} ${item.unid}<br>
+        <small>Unit: R$ ${item.valorUnit.toFixed(2)} | Desc: R$ ${item.desconto.toFixed(2)}</small>
+      </div>
+      <div style="text-align:right;">
+        <b>R$ ${item.totalItem.toFixed(2)}</b><br>
+        <button class="excluir" onclick="removerItem(${idx})">Remover</button>
+      </div>
+    </div>
+  `).join('');
+  const totalGeral = itensPedido.reduce((s,i)=>s+i.totalItem,0);
+  totalGeralSpan.innerText = totalGeral.toFixed(2);
+}
+function removerItem(indice){
+  itensPedido.splice(indice,1);
+  atualizarTabelaItens();
+}
+function limparPedido(){
+  itensPedido=[]; clienteSelecionado=null; produtoSelecionado=null;
+  buscaCliente.value=''; buscaProduto.value=''; 
+  p_valor.value=''; p_desc.value='0'; p_qtd.value='';
+  tabelaItens.innerHTML=''; totalGeralSpan.innerText='0.00';
+}
+
+// ========== FINALIZAR PEDIDO + PDF ==========
+async function finalizarPedido(){
+  if(!itensPedido.length) return alert('Pedido vazio!');
+  if(!clienteSelecionado) return alert('Selecione um cliente!');
+  
+  const totalGeral = itensPedido.reduce((s,i)=>s+i.totalItem,0);
+  const pedido = {
+    id:Date.now(),
+    data:new Date().toLocaleString('pt-BR'),
+    vendedor:usuarioLogado.nome,
+    cliente:{
+      empresa:clienteSelecionado.empresa,
+      nome:clienteSelecionado.nome,
+      cnpj:clienteSelecionado.cnpj,
+      tel:clienteSelecionado.tel,
+      end:clienteSelecionado.end
+    },
+    total:totalGeral,
+    itens:itensPedido
+  };
+  
+  db.pedidos.push(pedido);
+  await salvarNaPlanilha('pedidos', pedido);
+  
+  gerarPDF(pedido);
+  alert('✅ Pedido finalizado! PDF baixando...');
+  limparPedido();
+  mostrar('historico');
+}
+
+// ========== PDF — FONTES REDUZIDAS DEFINITIVAMENTE ==========
+function gerarPDF(ped){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  
+  // CABEÇALHO — TAMANHOS REDUZIDOS E FIXOS
+  doc.setFontSize(14); // ← Título bem menor
+  doc.setTextColor(10,61,46);
+  doc.setFont('helvetica','bold');
+  doc.text('DISTRIBUIDORA LITORÂNEA', 105, 20, {align:'center'});
+  
+  doc.setFontSize(9); // ← Subtítulo pequeno
+  doc.setTextColor(212,175,55);
+  doc.setFont('helvetica','italic');
+  doc.text('"Pedidos organizados, do balcão até a entrega."', 105, 26, {align:'center'});
+  
+  doc.setDrawColor(200,200,200);
+  doc.line(20,32,190,32);
+  
+  doc.setFontSize(10); // ← Dados padrão
+  doc.setTextColor(60,60,60);
+  doc.setFont('helvetica','normal');
+  
+  doc.text(`Pedido Nº: ${ped.id}`, 20, 40);
+  doc.text(`Data: ${ped.data}`, 120, 40);
+  doc.text(`Vendedor: ${ped.vendedor}`, 20, 48);
+  
+  doc.setFont('helvetica','bold');
+  doc.text('CLIENTE', 20, 60);
+  doc.setFont('helvetica','normal');
+  doc.text(ped.cliente.empresa, 20, 68);
+  doc.text(`Contato: ${ped.cliente.nome}`, 20, 76);
+  doc.text(`CNPJ/CPF: ${ped.cliente.cnpj || 'Não informado'}`, 20, 84);
+  doc.text(`Telefone: ${ped.cliente.tel || 'Não informado'}`, 20, 92);
+  doc.text(`Entrega: ${ped.cliente.end || 'Não informado'}`, 20, 100);
+  
+  // TABELA DE ITENS
+  const linhas = ped.itens.map(i=>[
+    i.produto,
+    i.marca,
+    `${i.qtd} ${i.unid}`,
+    `R$ ${i.valorUnit.toFixed(2)}`,
+    `R$ ${i.desconto.toFixed(2)}`,
+    `R$ ${i.totalItem.toFixed(2)}`
+  ]);
+  
+  doc.autoTable({
+    startY: 110,
+    head: [['Produto','Marca','Qtd','Unitário','Desc.','Total']],
+    body: linhas,
+    theme: 'grid',
+    headStyles: { fillColor:[10,61,46], textColor:255, fontSize:8 },
+    bodyStyles: { fontSize:8 },
+    margin: { left:20, right:20 }
+  });
+  
+  const ultimaLinha = doc.lastAutoTable.finalY + 12;
+  doc.setFontSize(13);
+  doc.setFont('helvetica','bold');
+  doc.setTextColor(10,61,46);
+  doc.text(`TOTAL R$ ${ped.total.toFixed(2)}`, 140, ultimaLinha, {align:'right'});
+  
+  doc.setFontSize(7);
+  doc.setTextColor(150,150,150);
+  doc.text('Distribuidora Litorânea — CNPJ: (a preencher) — Tel: (a preencher)', 105, 292, {align:'center'});
+  
+  doc.save(`pedido_${ped.id}.pdf`);
+}
+
+// ========== HISTÓRICO ==========
+function carregarHistorico(){
+  listaHistorico.innerHTML = db.pedidos.slice().reverse().map(p=>`
+    <div class="item-lista">
+      <div>
+        <b>Pedido #${p.id}</b> — ${p.data}<br>
+        <small>${p.cliente.empresa} — R$ ${p.total.toFixed(2)} — ${p.vendedor}</small>
+      </div>
+      <div>
+        <button class="editar" onclick="reimprimirPDF(${p.id})">📄 Reimprimir</button>
+      </div>
+    </div>
+  `).join('') || "Nenhum pedido registrado";
+}
+function reimprimirPDF(id){
+  const p = db.pedidos.find(x=>x.id==id);
+  if(p) gerarPDF(p);
+}
+
+// ========== ROMANEIO MENSAL — CLIENTE POR CLIENTE ✅ ==========
+function gerarRomaneio(){
+  const mes = prompt('Digite o mês (1-12):', new Date().getMonth()+1);
+  const ano = prompt('Digite o ano:', new Date().getFullYear());
+  if(!mes || !ano) return;
+  
+  const m = parseInt(mes);
+  const a = parseInt(ano);
+  const nomesMes = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  
+  // Filtrar pedidos do mês/ano
+  const pedidosMes = db.pedidos.filter(p=>{
+    const partes = p.data.split('/');
+    if(partes.length < 3) return false;
+    const d = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
+    return d.getMonth()+1 === m && d.getFullYear() === a;
+  });
+  
+  // Agrupar por cliente
+  const porCliente = {};
+  pedidosMes.forEach(p=>{
+    const nomeCli = p.cliente.empresa || p.cliente.nome;
+    if(!porCliente[nomeCli]){
+      porCliente[nomeCli] = {
+        pedidos: [],
+        total: 0,
+        contato: p.cliente.nome,
+        telefone: p.cliente.tel || ''
+      };
+    }
+    porCliente[nomeCli].pedidos.push({data:p.data, valor:p.total, id:p.id});
+    porCliente[nomeCli].total += p.total;
+  });
+  
+  const totalGeral = pedidosMes.reduce((s,p)=>s+p.total,0);
+  const qtdClientes = Object.keys(porCliente).length;
+  
+  // Montar saída
+  let linhasClientes = '';
+  for(const [nome, dados] of Object.entries(porCliente).sort()){
+    linhasClientes += `
+      <tr>
+        <td style="font-weight:bold; padding:10px;">${nome}</td>
+        <td style="padding:10px;">${dados.contato}</td>
+        <td style="padding:10px;">${dados.telefone}</td>
+        <td style="padding:10px; text-align:center;">${dados.pedidos.length}</td>
+        <td style="padding:10px; text-align:right; font-weight:bold; color:#0a3d2e;">R$ ${dados.total.toFixed(2)}</td>
+      </tr>
+    `;
+  }
+  
+  const janela = window.open('', '_blank');
+  janela.document.write(`
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Romaneio — ${nomesMes[m-1]} / ${a}</title>
+      <style>
+        body{font-family:Arial,sans-serif; padding:30px; max-width:900px; margin:0 auto;}
+        .cabecalho{text-align:center; margin-bottom:25px; border-bottom:2px solid #0a3d2e; padding-bottom:15px;}
+        .cabecalho h1{color:#0a3d2e; font-size:20px; margin-bottom:5px;}
+        .cabecalho p{color:#d4af37; font-style:italic;}
+        table{width:100%; border-collapse:collapse; margin:20px 0;}
+        th{background:#0a3d2e; color:white; padding:12px; text-align:left; font-size:13px;}
+        td{border-bottom:1px solid #ddd; padding:10px; font-size:13px;}
+        .total-geral{background:#fef8e8; padding:15px; border-radius:8px; text-align:right; font-size:18px; font-weight:bold; color:#fd7e14; margin-top:20px;}
+        .resumo{display:flex; gap:30px; margin:15px 0; flex-wrap:wrap;}
+        .resumo div{background:#f5f5f5; padding:15px; border-radius:8px;}
+        @media print{body{padding:10px;} button{display:none;}}
+      </style>
+    </head>
+    <body>
+      <div class="cabecalho">
+        <h1>DISTRIBUIDORA LITORÂNEA</h1>
+        <p>Romaneio Mensal de Vendas — ${nomesMes[m-1]} de ${a}</p>
+      </div>
+      
+      <div class="resumo">
+        <div>
+          <strong>Total de Pedidos:</strong> ${pedidosMes.length}
+        </div>
+        <div>
+          <strong>Clientes Atendidos:</strong> ${qtdClientes}
+        </div>
+        <div>
+          <strong>Período:</strong> ${nomesMes[m-1]} / ${a}
+        </div>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente / Empresa</th>
+            <th>Contato</th>
+            <th>Telefone</th>
+            <th style="text-align:center;">Qtd Pedidos</th>
+            <th style="text-align:right;">Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${linhasClientes || '<tr><td colspan="5" style="text-align:center; padding:20px;">Nenhum pedido registrado neste período.</td></tr>'}
+        </tbody>
+      </table>
+      
+      <div class="total-geral">
+        VALOR TOTAL DO MÊS: R$ ${totalGeral.toFixed(2)}
+      </div>
+      
+      <p style="text-align:center; margin-top:30px; color:#888; font-size:12px;">
+        Romaneio gerado em: ${new Date().toLocaleString('pt-BR')} — Distribuidora Litorânea
+      </p>
+      
+      <button onclick="window.print()" style="padding:12px 30px; font-size:15px; background:#0a3d2e; color:white; border:none; border-radius:8px; cursor:pointer; margin-top:20px;">🖨️ Imprimir Romaneio</button>
+    </body>
+    </html>
+  `);
+  janela.document.close();
+}
+
+// ========== INICIALIZAÇÃO ==========
+carregarDados();
+</script>
+</body>
+</html>
